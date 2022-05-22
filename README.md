@@ -1,0 +1,5 @@
+- Install vim-plug follow instructions on https://github.com/junegunn/vim-plug
+- Start nvim do :PlugInstall
+- Do :UpdateRemotePlugins incase of any errors like Unkown function: SemshiBufWipeout 
+- Install node, npm, yarn for coc.nvim to work
+- Install coc-pyright and other required extensions
