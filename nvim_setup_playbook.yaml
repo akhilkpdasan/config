@@ -1,4 +1,4 @@
-- name: Config nvim with plugins
+- name: Configure nvim with plugins
   hosts: localhost
   gather_facts: yes
   become: no
