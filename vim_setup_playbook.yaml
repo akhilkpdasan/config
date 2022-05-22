@@ -44,4 +44,4 @@
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     - name: Install vim plugins
-      ansible.builtin.shell: nvim +UpdateRemotePlugin +PlugInstall +qall
+      ansible.builtin.shell: nvim +UpdateRemotePlugin +PlugInstall "+CocInstall coc-pyright" +qall
