@@ -1,0 +1,42 @@
+- name: Config nvim with plugins
+  hosts: localhost
+  gather_facts: yes
+  become: no
+  vars:
+    nvim_dir: "{{ ansible_env.HOME }}/.config/nvim"
+    vim_plug_dir: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
+    vimrc: "{{ ansible_env.HOME }}/.config/nvim/init.vim"
+
+  tasks:
+    - name: Install required packages
+      package:
+        name:
+          - node
+          - npm
+          - neovim
+          - git
+          - fzf
+        state: installed
+      become: yes
+      tags:
+        - install_packages
+
+    - name: Ensure .config/nvim directory exists
+      file:
+        path: "{{ item }}"
+        state: directory
+        recurse: yes
+        mode: 0750
+      loop:
+        - "{{ nvim_dir }}"
+        - "{{ vim_plug_dir }}"
+
+    - name: Ensure .vimrc config in place
+      copy:
+        src: init.vim
+        dest: "{{ vimrc }}"
+        backup: yes
+        mode: 0640
+
+    - name: Ensure vim plug is in place
+      ansible.builtin.shell: nvim +UpdateRemotePlugin +PlugInstall +qall
